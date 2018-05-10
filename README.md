@@ -44,10 +44,9 @@ You can take a look at [Change log](https://github.com/haxpor/Potatso/wiki/Chang
 Perform the following steps to be able to build the project.
 Be warned that you **should not** call `pod update` as newer version of pod frameworks that Potatso depends on might break building process and there will be errors.
 
-1. `git submodule update --init` to update git submodule
-2. `pod install` to pull down dependencies into our project
-3. `carthage update` to pull down dependencies into `Carthage/Checkouts` folder and build each one
-4. Open `Potatso.xcworkspace` then Build and Run the project. Done.
+1. `pod install` to pull down dependencies into our project
+2. `carthage update` to pull down dependencies into `Carthage/Checkouts` folder and build each one
+3. Open `Potatso.xcworkspace` then Build and Run the project. Done.
 
 ## Build Notices
 
