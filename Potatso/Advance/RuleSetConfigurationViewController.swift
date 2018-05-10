@@ -57,7 +57,11 @@ class RuleSetConfigurationViewController: FormViewController {
             navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(save))
         }
         //TODO: why reload section here?
-//        tableView?.reloadSections(IndexSet(integer: 1), with: .none)
+//
+        if rules.count > 0 {
+            tableView?.reloadSections(IndexSet(integer: 1), with: .none)
+        }
+        
     }
 
     func generateForm() {
