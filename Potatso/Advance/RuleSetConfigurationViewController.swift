@@ -56,7 +56,8 @@ class RuleSetConfigurationViewController: FormViewController {
         if editable {
             navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(save))
         }
-        tableView?.reloadSections(IndexSet(integer: 1), with: .none)
+        //TODO: why reload section here?
+//        tableView?.reloadSections(IndexSet(integer: 1), with: .none)
     }
 
     func generateForm() {
