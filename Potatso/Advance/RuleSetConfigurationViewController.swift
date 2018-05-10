@@ -15,22 +15,22 @@ private let kRuleSetFormName = "name"
 
 class RuleSetConfigurationViewController: FormViewController {
 
-    var ruleSet: PotatsoModel.RuleSet
+    var ruleSet: PotatsoModel.MRuleSet
     var rules: [Rule]
     let isEdit: Bool
     var editable: Bool {
         return ruleSet.editable && !ruleSet.isSubscribe
     }
-    var callback: ((PotatsoModel.RuleSet?) -> Void)?
+    var callback: ((PotatsoModel.MRuleSet?) -> Void)?
     var editSection: Section = Section()
 
-    init(ruleSet: PotatsoModel.RuleSet? = nil, callback: ((PotatsoModel.RuleSet?) -> Void)? = nil) {
+    init(ruleSet: PotatsoModel.MRuleSet? = nil, callback: ((PotatsoModel.MRuleSet?) -> Void)? = nil) {
         self.callback = callback
         if let ruleSet = ruleSet {
-            self.ruleSet = RuleSet(value: ruleSet)
+            self.ruleSet = MRuleSet(value: ruleSet)
             self.isEdit = true
         }else {
-            self.ruleSet = RuleSet()
+            self.ruleSet = MRuleSet()
             self.isEdit = false
         }
         self.rules = self.ruleSet.rules
@@ -128,23 +128,24 @@ class RuleSetConfigurationViewController: FormViewController {
             showTextHUD("\(error)", dismissAfterDelay: 1.0)
         }
     }
-    
-    func tableView(_ tableView: UITableView, canEditRowAtIndexPath indexPath: IndexPath) -> Bool {
+    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        
+//    func tableView(_ tableView: UITableView, canEditRowAtIndexPath indexPath: IndexPath) -> Bool {
         if indexPath.section == 1 {
             return editable
         }
         return false
     }
-    
-    func tableView(_ tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: IndexPath) {
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+//    func tableView(_ tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: IndexPath) {
         if editingStyle == .delete {
             ruleSet.removeRule(atIndex: indexPath.row - 1)
             form[indexPath].hidden = true
             form[indexPath].evaluateHidden()
         }
     }
-    
-    func tableView(_ tableView: UITableView, editingStyleForRowAtIndexPath indexPath: IndexPath) -> UITableViewCellEditingStyle {
+    override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
+//    func tableView(_ tableView: UITableView, editingStyleForRowAtIndexPath indexPath: IndexPath) -> UITableViewCellEditingStyle {
         return UITableViewCellEditingStyle.delete
     }
     

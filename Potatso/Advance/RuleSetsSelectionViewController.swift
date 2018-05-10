@@ -13,14 +13,15 @@ import PotatsoModel
 
 class RuleSetsSelectionViewController: FormViewController {
 
-    var selectedRuleSets: [RuleSet]
-    var callback: (([RuleSet]) -> Void)?
-    var ruleSets: [RuleSet] = []
+    var selectedRuleSets: [MRuleSet]
+    var callback: (([MRuleSet]) -> Void)?
+    var ruleSets: [MRuleSet] = []
     
-    init(selectedRuleSets: [RuleSet], callback: (([RuleSet]) -> Void)?) {
+    init(selectedRuleSets: [MRuleSet], callback: (([MRuleSet]) -> Void)?) {
         self.selectedRuleSets = selectedRuleSets
         self.callback = callback
         super.init(nibName: nil, bundle: nil)
+        
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -52,7 +53,7 @@ class RuleSetsSelectionViewController: FormViewController {
     func generateForm() {
         form.delegate = nil
         form.removeAll()
-        ruleSets = defaultRealm.objects(RuleSet.self).sorted(byProperty: "createAt").map({ $0 })
+        ruleSets = defaultRealm.objects(MRuleSet.self).sorted(byProperty: "createAt").map({ $0 })
         form +++ Section("Rule Set".localized())
         for ruleSet in ruleSets {
             form[0]
@@ -72,7 +73,7 @@ class RuleSetsSelectionViewController: FormViewController {
         tableView?.reloadData()
     }
     
-    func showRuleSetConfiguration(_ ruleSet: RuleSet?) {
+    func showRuleSetConfiguration(_ ruleSet: MRuleSet?) {
         let vc = RuleSetConfigurationViewController(ruleSet: ruleSet)
         navigationController?.pushViewController(vc, animated: true)
     }

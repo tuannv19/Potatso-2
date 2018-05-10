@@ -11,8 +11,10 @@ import PotatsoModel
 import Eureka
 import Cartography
 
-final class ProxyRow: Row<Proxy, ProxyRowCell>, RowType {
 
+//TODO: 1
+//final class ProxyRow: Row<Proxy, ProxyRowCell>, RowType {
+final class ProxyRow: Row<ProxyRowCell>, RowType {
     required init(tag: String?) {
         super.init(tag: tag)
         displayValueFor = nil

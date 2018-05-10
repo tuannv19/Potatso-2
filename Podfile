@@ -9,8 +9,8 @@ def fabric
 end
 
 def library
-    pod 'KissXML'
-    pod 'KissXML/libxml_module'
+    pod 'KissXML',  :git => 'https://github.com/robbiehanson/KissXML.git', :branch => 'master'
+    #    pod 'KissXML/libxml_module'
     pod 'ICSMainFramework', :path => "./Library/ICSMainFramework/"
     pod 'MMWormhole', '~> 2.0.0'
     pod 'KeychainAccess'
@@ -25,7 +25,7 @@ def socket
 end
 
 def model
-    pod 'RealmSwift'
+    pod 'RealmSwift', '2.8.1'
 end
 
 target "Potatso" do
@@ -34,7 +34,7 @@ target "Potatso" do
     pod 'AsyncSwift'
     pod 'SwiftColor'
     pod 'Appirater'
-    pod 'Eureka', :path => "./Library/Eureka/"
+    pod 'Eureka', :git => 'https://github.com/xmartlabs/Eureka.git', :branch => 'Swift-3.3'
     pod 'MBProgressHUD'
     pod 'CallbackURLKit', :path => "./Library/CallbackURLKit"
     pod 'ICDMaterialActivityIndicatorView', '~> 0.1.0'

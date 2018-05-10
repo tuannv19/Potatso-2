@@ -29,7 +29,7 @@ extension RuleSetError: CustomStringConvertible {
     
 }
 
-public final class RuleSet: BaseModel {
+public final class MRuleSet: BaseModel {
     public dynamic var editable = true
     public dynamic var name = ""
     public dynamic var remoteUpdatedAt: TimeInterval = Date().timeIntervalSince1970
@@ -98,7 +98,7 @@ public final class RuleSet: BaseModel {
     }
 }
 
-extension RuleSet {
+extension MRuleSet {
     
     public override static func indexedProperties() -> [String] {
         return ["name"]
@@ -106,7 +106,7 @@ extension RuleSet {
     
 }
 
-extension RuleSet {
+extension MRuleSet {
     
     public convenience init(dictionary: [String: AnyObject], inRealm realm: Realm) throws {
         self.init()
@@ -114,8 +114,8 @@ extension RuleSet {
             throw RuleSetError.invalidRuleSet
         }
         self.name = name
-        if realm.objects(RuleSet).filter("name = '\(name)'").first != nil {
-            self.name = "\(name) \(RuleSet.dateFormatter.string(from: Date()))"
+        if realm.objects(MRuleSet).filter("name = '\(name)'").first != nil {
+            self.name = "\(name) \(MRuleSet.dateFormatter.string(from: Date()))"
         }
         guard let rulesStr = dictionary["rules"] as? [String] else {
             throw RuleSetError.invalidRuleSet
@@ -125,6 +125,6 @@ extension RuleSet {
     
 }
 
-public func ==(lhs: RuleSet, rhs: RuleSet) -> Bool {
+public func ==(lhs: MRuleSet, rhs: MRuleSet) -> Bool {
     return lhs.uuid == rhs.uuid
 }

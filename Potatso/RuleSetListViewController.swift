@@ -17,21 +17,22 @@ private let kRuleSetCellIdentifier = "ruleset"
 
 class RuleSetListViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
-    var ruleSets: Results<RuleSet>
-    var chooseCallback: ((RuleSet?) -> Void)?
+    var ruleSets: Results<MRuleSet>
+    var chooseCallback: ((MRuleSet?) -> Void)?
     // Observe Realm Notifications
     var token: RLMNotificationToken?
     var heightAtIndex: [Int: CGFloat] = [:]
 
-    init(chooseCallback: ((RuleSet?) -> Void)? = nil) {
+    init(chooseCallback: ((MRuleSet?) -> Void)? = nil) {
         self.chooseCallback = chooseCallback
-        self.ruleSets = DBUtils.allNotDeleted(RuleSet.self, sorted: "createAt")
+        self.ruleSets = DBUtils.allNotDeleted(MRuleSet.self, sorted: "createAt")
         super.init(nibName: nil, bundle: nil)
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -62,7 +63,7 @@ class RuleSetListViewController: UIViewController, UITableViewDataSource, UITabl
     }
 
     func reloadData() {
-        ruleSets = DBUtils.allNotDeleted(RuleSet.self, sorted: "createAt")
+        ruleSets = DBUtils.allNotDeleted(MRuleSet.self, sorted: "createAt")
         tableView.reloadData()
     }
 
@@ -71,7 +72,7 @@ class RuleSetListViewController: UIViewController, UITableViewDataSource, UITabl
         navigationController?.pushViewController(vc, animated: true)
     }
 
-    func showRuleSetConfiguration(_ ruleSet: RuleSet?) {
+    func showRuleSetConfiguration(_ ruleSet: MRuleSet?) {
         let vc = RuleSetConfigurationViewController(ruleSet: ruleSet)
         navigationController?.pushViewController(vc, animated: true)
     }
@@ -119,13 +120,13 @@ class RuleSetListViewController: UIViewController, UITableViewDataSource, UITabl
 
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            let item: RuleSet
+            let item: MRuleSet
             guard indexPath.row < ruleSets.count else {
                 return
             }
             item = ruleSets[indexPath.row]
             do {
-                try DBUtils.softDelete(item.uuid, type: RuleSet.self)
+                try DBUtils.softDelete(item.uuid, type: MRuleSet.self)
             }catch {
                 self.showTextHUD("\("Fail to delete item".localized()): \((error as NSError).localizedDescription)", dismissAfterDelay: 1.5)
             }
